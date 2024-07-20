@@ -1,63 +1,83 @@
-// function to display an element in the top div
-var input;
-var secondInput;
-var selectedOperator;
-var answer;
-var flag;
-var storeInputs=[];
-var storeOperators;
-var displayText
+//initializing the variables i neeed
+var input="";
+var storedInput =[];
+var selectedOperator="";
+var result=0;
 
-
-//function to display whatever number was pressed
-function getInput(){
-    $(".grid-item").on("click", function(){
-        input=($(this).text());
-        storeValues();
-        displayText=$(".display").text();
-        $(".display").text(displayText + input);
-    } );
-}
+//add an event listner for numbers 
+$(".grid-item").on("click", function() {
+    getInput($(this).text());
     
-//function to know what operator was pressed 
-function getOperator(){
-    $(".grid-operator").on("click", function(){
-        selectedOperator=($(this).text());
-        //store the current input then clear and store the next input
-        clear();
-    })
-}
-function storeValues(){
-       // storeInputs.push(input);
-        //storeOperators=selectedOperator;
-        //console.log(storeInputs);
-        if (input) {  // Ensure input is not undefined or empty
-            storeInputs.push(input);
-            console.log(storeInputs);
-        } else {
+});
+
+//an event listener for the operators
+$(".grid-operator").on("click", function() {
+    getOperator($(this).text());
+});
+
+//an event listener for the equals
+$(".grid-equals").on("click", function() {
+    performCalculation();
+   
+});
+
+//an event listener for the clear
+$(".grid-clear").on("click", function() {
+    clear();
     
-            console.log('No input to store');
-}
-}
+});
 
-//function to handle the equals button
-function equals(){
-
-}
-
-//function to handle clear button
-function clear(){
-    $(".display").text(" ");
+//function to show what input was entered
+function getInput(number) {
+    // Append the number to input
+    input += number;
+    // Update the display
+    $(".display").text(input);
+    
 }
 
-//function to handle decimal button
+ function getOperator(operate){
+    storedInput.push(input);
+    selectedOperator=operate;
 
-//funtion to handle percentage button
+    // console.log(selectedOperator);
+    //clear the input and display for next input
+    input = '';
+    $(".display").text('');
+ }
 
-//funtion to handle plus or minus button
+ //clear function that clears the display and just shows 0
+ function clear(){
+    $(".display").text("0");
+    input="";
+    operator="";
+    storedInput=[];
+ }
 
+ function performCalculation(){
+    storedInput.push(input);
+    // Convert the last two inputs to numbers
+    var num1 = Number(storedInput[storedInput.length - 2]);
+    var num2 = Number(storedInput[storedInput.length - 1]);
+    
+    // Perform the calculation based on selectedOperator
+    if (selectedOperator === '+') { 
+        result = num1 + num2;
+    } else if (selectedOperator === '−') {
+        result = num1 - num2;
+    } else if (selectedOperator === '×') {
+        result = num1 * num2;
+    } else if (selectedOperator === '÷') {
+        result = num1 / num2;
+    }
+    else if (selectedOperator === '%') {
+        result = num1 / num2;
+    }
 
-//function to update display
-getInput();
-getOperator();
-storeValues();
+    // Update the display with the result
+    $(".display").text(result);
+    
+    // Reset input and storeInputs for the next calculation
+    input = '';
+    storeInputs = [];
+ }

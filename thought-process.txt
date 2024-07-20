@@ -1,0 +1,15 @@
+I found a calculator on dribble i'm trying to recreate it
+1. I would have a div containter that looks like an iphone
+2. I would have two divs inside 
+3. the first div is the display where you see all the user is inputing
+4. the second div is where the buttons would be
+5. The display for both divs in the container would be flex
+5. I would create a grid for the buttons a 4 by 5 grid
+7. I want anything I press in the calculator div (grid items )to show on my diplay.
+8. I want it to perform arithmetic operations.
+9. I want the numbers diplayed to perform the arithmetic operations.
+
+
+
+
+
